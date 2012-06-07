@@ -32,18 +32,9 @@ end
 class TelefonyNode
   @value = ""    # wartosc tego wezla (litera)
   @children = {} # hash-mapa na dzieci tego noda
-                # klucz to litera, wartosc to node
-                # nil oznacza brak powiazania
-  #  2 = A B C
-  #  3 = D E F
-  #  4 = G H I
-  #  5 = J K L
-  #  6 = M N O
-  #  7 = P Q R S
-  #  8 = T U V
-  #  9 = W X Y Z
-  #przeksztalcenie cyfra -> potencjalne litery
-#  @mapping = { }
+                 # klucz to litera, wartosc to node
+                 # nil oznacza brak powiazania
+  @endpoint = false # czy dane wezel konczy (jakies) slowo
   
   #konstruktor
   #obiekty powinny byc niezmienne, 
@@ -51,16 +42,7 @@ class TelefonyNode
   def initialize(word)
       @value = word
       @children = {}
-#      @mapping = {
-#        "2" => ["A", "B", "C"],
-#        "3" => ["D", "E", "F"],
-#        "4" => ["G", "H", "I"],
-#        "5" => ["J", "K", "L"],
-#        "6" => ["M", "N", "O"],
-#        "7" => ["P", "Q", "R", "S"],
-#        "8" => ["T", "U", "V"],
-#        "9" => ["W", "X", "Y", "Z"]
-#      }
+      @endpoint = false
   end
   
   ##
@@ -68,7 +50,8 @@ class TelefonyNode
   ## 
   def addWord(word)
     #jesli slowo sie skonczylo, to koncz
-    if word.length == 0
+    if word.length == 1
+      @endpoint = true
       return
     end 
     #dodaj dziecko, jesli nie istnieje
@@ -86,8 +69,11 @@ class TelefonyNode
   def search(word, acc="")
     #jesli slowo sie skonczylo, to koncz
     if word.length == 0
-      ##puts(acc)
-      return acc
+      if @endpoint
+        return acc
+      else
+        [ ]
+      end
     end 
     
     #lista wynikow
