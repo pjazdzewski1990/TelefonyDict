@@ -61,15 +61,18 @@ class TelefonyNode
     #jesli slowo sie skonczylo, to koncz
     if word.length == 0
       puts(acc)
-      return
+      return acc
     end 
+    
+    result = []
     #rozwazana litera
     letter = word[0].chr
     #wywoluj rekursywnie, dla kazdego istniejacego dziecka
     defined? @mapping[letter].each{ |l|
       ##puts(l)
-      @children[l].search(word[1, word.length], acc+l) unless @children[l]==nil
+      result << @children[l].search(word[1, word.length], acc+l) unless @children[l]==nil
     }
+    return result.flatten
   end
   
   ##

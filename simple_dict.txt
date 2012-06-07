@@ -7,3 +7,4 @@ pies
 komputer
 telefon
 rAGNARSON
+abccc
