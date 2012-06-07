@@ -1,4 +1,30 @@
 
+class LettersMapping
+  #  2 = A B C
+  #  3 = D E F
+  #  4 = G H I
+  #  5 = J K L
+  #  6 = M N O
+  #  7 = P Q R S
+  #  8 = T U V
+  #  9 = W X Y Z
+  #przeksztalcenie cyfra -> potencjalne litery
+  @@mapping = {
+    "2" => ["A", "B", "C"],
+    "3" => ["D", "E", "F"],
+    "4" => ["G", "H", "I"],
+    "5" => ["J", "K", "L"],
+    "6" => ["M", "N", "O"],
+    "7" => ["P", "Q", "R", "S"],
+    "8" => ["T", "U", "V"],
+    "9" => ["W", "X", "Y", "Z"]
+  }
+  
+  def self.mapping
+      @@mapping
+  end
+end
+
 ##
 # Struktura drzewiasta do przechowywania slownika
 # oraz do wyszukiwania zawartcyh w nim slow
@@ -17,7 +43,7 @@ class TelefonyNode
   #  8 = T U V
   #  9 = W X Y Z
   #przeksztalcenie cyfra -> potencjalne litery
-  @mapping = { }
+#  @mapping = { }
   
   #konstruktor
   #obiekty powinny byc niezmienne, 
@@ -25,16 +51,16 @@ class TelefonyNode
   def initialize(word)
       @value = word
       @children = {}
-      @mapping = {
-        "2" => ["A", "B", "C"],
-        "3" => ["D", "E", "F"],
-        "4" => ["G", "H", "I"],
-        "5" => ["J", "K", "L"],
-        "6" => ["M", "N", "O"],
-        "7" => ["P", "Q", "R", "S"],
-        "8" => ["T", "U", "V"],
-        "9" => ["W", "X", "Y", "Z"]
-      }
+#      @mapping = {
+#        "2" => ["A", "B", "C"],
+#        "3" => ["D", "E", "F"],
+#        "4" => ["G", "H", "I"],
+#        "5" => ["J", "K", "L"],
+#        "6" => ["M", "N", "O"],
+#        "7" => ["P", "Q", "R", "S"],
+#        "8" => ["T", "U", "V"],
+#        "9" => ["W", "X", "Y", "Z"]
+#      }
   end
   
   ##
@@ -69,7 +95,7 @@ class TelefonyNode
     #rozwazana litera
     letter = word[0].chr
     #wywoluj rekursywnie, dla kazdego istniejacego dziecka
-    defined? @mapping[letter].each{ |l|
+    defined? LettersMapping.mapping[letter].each{ |l|
       #dla wybranego dziecka wywolujemy szukanie krotszego slowa, jesli dziecko istnieje
       result << @children[l].search(word[1, word.length], acc+l) unless @children[l]==nil
     }
