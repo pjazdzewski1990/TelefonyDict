@@ -1,5 +1,4 @@
 require File.expand_path(File.dirname(__FILE__) + '/TelefonyNode.rb')
-#require '/Telefony.rb'
 
 ##
 # Usuwa znaki nie bedace cyframi

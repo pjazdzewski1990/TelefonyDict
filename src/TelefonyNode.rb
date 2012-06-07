@@ -60,18 +60,20 @@ class TelefonyNode
   def search(word, acc="")
     #jesli slowo sie skonczylo, to koncz
     if word.length == 0
-      puts(acc)
+      ##puts(acc)
       return acc
     end 
     
+    #lista wynikow
     result = []
     #rozwazana litera
     letter = word[0].chr
     #wywoluj rekursywnie, dla kazdego istniejacego dziecka
     defined? @mapping[letter].each{ |l|
-      ##puts(l)
+      #dla wybranego dziecka wywolujemy szukanie krotszego slowa, jesli dziecko istnieje
       result << @children[l].search(word[1, word.length], acc+l) unless @children[l]==nil
     }
+    #zamieniamy liste list na liste
     return result.flatten
   end
   
