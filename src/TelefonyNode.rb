@@ -1,4 +1,7 @@
 
+##
+# Klasa pomocnicza zawierajaca mapowanie cyfra->litery
+# Mapowanie wyciagamy z Node, by "odchudzic" serializowany obiekt 
 class LettersMapping
   #  2 = A B C
   #  3 = D E F
@@ -34,7 +37,7 @@ class TelefonyNode
   @children = {} # hash-mapa na dzieci tego noda
                  # klucz to litera, wartosc to node
                  # nil oznacza brak powiazania
-  @endpoint = false # czy dane wezel konczy (jakies) slowo
+  @endpoint = false # czy dany wezel konczy (jakies) slowo
   
   #konstruktor
   #obiekty powinny byc niezmienne, 
@@ -49,9 +52,9 @@ class TelefonyNode
   # Dodaj slowo do struktury drzewiastej
   ## 
   def addWord(word)
-    #jesli slowo sie skonczylo, to koncz
+    #jesli slowo szukane sie skonczylo, to koncz
     if word.length == 1
-      @endpoint = true
+      @endpoint = true  #to jest punkt konczacy
       return
     end 
     #dodaj dziecko, jesli nie istnieje
@@ -69,6 +72,7 @@ class TelefonyNode
   def search(word, acc="")
     #jesli slowo sie skonczylo, to koncz
     if word.length == 0
+      #ale zwróć słowo tylko jeśli ten wezeł jakieś kończy
       if @endpoint
         return acc
       else
